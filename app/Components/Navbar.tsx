@@ -42,7 +42,6 @@ export default function Navbar() {
 
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
-  // Scroll detection to stick to the top flush on scroll
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
@@ -52,13 +51,13 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close menus on page route changes
-  useEffect(() => {
+  const [prevPath, setPrevPath] = useState(pathname);
+  if (prevPath !== pathname) {
+    setPrevPath(pathname);
     setDropdownOpen(false);
     setMobileOpen(false);
-  }, [pathname]);
+  }
 
-  // Click outside to close desktop dropdown
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
@@ -69,7 +68,6 @@ export default function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Escape key closes mobile menu & dropdown
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -81,7 +79,6 @@ export default function Navbar() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  // Auto close mobile menu on screen resize to desktop
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 1024 && mobileOpen) {
@@ -92,7 +89,6 @@ export default function Navbar() {
     return () => window.removeEventListener("resize", handleResize);
   }, [mobileOpen]);
 
-  // Body scroll lock when mobile drawer is open
   useEffect(() => {
     if (mobileOpen) {
       const scrollY = window.scrollY;
@@ -120,7 +116,6 @@ export default function Navbar() {
 
   return (
     <>
-      {/* ─── 1. NAVBAR (BIG AT TOP & STICKS TO CEILING ON SCROLL) ─── */}
       <header
         id="site-navbar"
         className={`fixed left-0 right-0 z-50 flex justify-center transition-all duration-300 pointer-events-none ${
@@ -134,7 +129,6 @@ export default function Navbar() {
               : "w-full max-w-7xl mx-auto rounded-2xl sm:rounded-full bg-[#080C14]/90 backdrop-blur-xl border border-white/15 shadow-[0_12px_35px_rgba(0,0,0,0.65)] py-3 sm:py-4 pl-4 sm:pl-8 pr-4 sm:pr-8"
           }`}
         >
-          {/* Brand Logo with transparent luxury branding */}
           <Link
             href="/"
             id="nav-brand-logo"
@@ -153,7 +147,6 @@ export default function Navbar() {
             </div>
           </Link>
 
-          {/* ─── DESKTOP NAVIGATION LINKS (Centered & Spacious) ─── */}
           <nav
             className="hidden lg:flex items-center gap-1 xl:gap-2 shrink-0"
             aria-label="Desktop Navigation"
@@ -165,12 +158,10 @@ export default function Navbar() {
                   ? "text-[#C2A062] bg-[#C2A062]/10 font-semibold"
                   : "text-white/85 hover:text-white hover:bg-white/[0.06]"
               }`}
-              style={{ fontFamily: "'Manrope', sans-serif" }}
             >
               Home
             </Link>
 
-            {/* Products Dropdown */}
             <div
               ref={dropdownRef}
               className="relative"
@@ -185,7 +176,6 @@ export default function Navbar() {
                     ? "text-[#C2A062] bg-[#C2A062]/10 font-semibold"
                     : "text-white/85 hover:text-white hover:bg-white/[0.06]"
                 }`}
-                style={{ fontFamily: "'Manrope', sans-serif" }}
                 aria-expanded={dropdownOpen}
                 aria-haspopup="true"
               >
@@ -200,7 +190,6 @@ export default function Navbar() {
                 </svg>
               </button>
 
-              {/* Clean Dropdown Menu */}
               <div
                 className={`absolute top-full left-0 pt-2 w-64 z-50 transition-all duration-200 origin-top ${
                   dropdownOpen
@@ -218,7 +207,6 @@ export default function Navbar() {
                           ? "text-[#C2A062] font-semibold border-b border-white/[0.08] mb-1 pb-2.5"
                           : "text-white/85 hover:text-white hover:bg-white/[0.06]"
                       }`}
-                      style={{ fontFamily: "'Manrope', sans-serif" }}
                     >
                       {item.name}
                     </Link>
@@ -234,7 +222,6 @@ export default function Navbar() {
                   ? "text-[#C2A062] bg-[#C2A062]/10 font-semibold"
                   : "text-white/85 hover:text-white hover:bg-white/[0.06]"
               }`}
-              style={{ fontFamily: "'Manrope', sans-serif" }}
             >
               Customization
             </Link>
@@ -246,7 +233,6 @@ export default function Navbar() {
                   ? "text-[#C2A062] bg-[#C2A062]/10 font-semibold"
                   : "text-white/85 hover:text-white hover:bg-white/[0.06]"
               }`}
-              style={{ fontFamily: "'Manrope', sans-serif" }}
             >
               Applications
             </Link>
@@ -258,7 +244,6 @@ export default function Navbar() {
                   ? "text-[#C2A062] bg-[#C2A062]/10 font-semibold"
                   : "text-white/85 hover:text-white hover:bg-white/[0.06]"
               }`}
-              style={{ fontFamily: "'Manrope', sans-serif" }}
             >
               Gallery
             </Link>
@@ -270,7 +255,6 @@ export default function Navbar() {
                   ? "text-[#C2A062] bg-[#C2A062]/10 font-semibold"
                   : "text-white/85 hover:text-white hover:bg-white/[0.06]"
               }`}
-              style={{ fontFamily: "'Manrope', sans-serif" }}
             >
               About Us
             </Link>
@@ -282,20 +266,16 @@ export default function Navbar() {
                   ? "text-[#C2A062] bg-[#C2A062]/10 font-semibold"
                   : "text-white/85 hover:text-white hover:bg-white/[0.06]"
               }`}
-              style={{ fontFamily: "'Manrope', sans-serif" }}
             >
               Contact
             </Link>
           </nav>
 
-          {/* ─── DESKTOP RIGHT CTA + PREMIER HAMBURGER TRIGGER ─── */}
           <div className="flex items-center gap-3 sm:gap-4 shrink-0">
-            {/* Get Quote CTA (Desktop / Tablet >= 768px) */}
             <Link
               href="/contact"
               id="navbar-get-quote-btn"
               className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 sm:px-6 sm:py-2.5 rounded-full bg-[#C2A062] hover:bg-[#D4B57A] text-[#080C14] font-bold text-xs sm:text-[13px] uppercase tracking-[0.14em] whitespace-nowrap shadow-[0_4px_16px_rgba(194,160,98,0.3)] hover:shadow-[0_6px_22px_rgba(194,160,98,0.45)] active:scale-95 transition-all cursor-pointer select-none group"
-              style={{ fontFamily: "'Manrope', sans-serif" }}
             >
               <span>Get Quote</span>
               <svg viewBox="0 0 16 16" className="w-3.5 h-3.5 fill-none stroke-current stroke-2 transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden="true">
@@ -303,7 +283,6 @@ export default function Navbar() {
               </svg>
             </Link>
 
-            {/* ─── PREMIER GOLD LUXURY HAMBURGER BUTTON ─── */}
             <button
               id="nav-hamburger-toggle"
               type="button"
@@ -317,7 +296,6 @@ export default function Navbar() {
               aria-expanded={mobileOpen}
               aria-controls="mobile-nav-menu"
             >
-              {/* Premier Gold 24px Bars */}
               <div className="w-6 h-4.5 relative flex flex-col justify-between items-center pointer-events-none">
                 <span
                   className={`block h-[2.5px] w-6 rounded-full transition-all duration-300 origin-center bg-[#C2A062] ${
@@ -340,7 +318,6 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* ─── 2. PREMIER MINIMALIST MOBILE DRAWER (NO CALL CARD, NO EXTRA TEXT) ─── */}
       <div
         id="mobile-nav-menu"
         className={`fixed inset-0 z-[60] lg:hidden transition-all duration-300 ${
@@ -348,22 +325,18 @@ export default function Navbar() {
         }`}
         aria-hidden={!mobileOpen}
       >
-        {/* Deep Obsidian Smoked Backdrop */}
         <div
           className="absolute inset-0 bg-black/85 backdrop-blur-md transition-opacity duration-300"
           onClick={() => setMobileOpen(false)}
         />
 
-        {/* Premier Drawer Panel */}
         <div
           className={`absolute top-0 right-0 bottom-0 w-full sm:w-[420px] max-w-full bg-[#070B12] border-l border-[#C2A062]/20 shadow-2xl flex flex-col transition-transform duration-300 ease-out z-10 ${
             mobileOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
-          {/* Subtle Ambient Gold Glow in Background */}
           <div className="absolute top-0 right-0 w-80 h-80 rounded-full bg-[#C2A062]/06 blur-3xl pointer-events-none" />
 
-          {/* Top Header: Logo on Left, Premier Gold Close '✕' on Right */}
           <div className="p-5 sm:p-6 border-b border-white/[0.08] flex items-center justify-between bg-[#070B12]/80 backdrop-blur-md relative z-10">
             <Link
               href="/"
@@ -381,7 +354,6 @@ export default function Navbar() {
               </div>
             </Link>
 
-            {/* Premier Gold Close '✕' Button */}
             <button
               type="button"
               onClick={() => setMobileOpen(false)}
@@ -394,9 +366,7 @@ export default function Navbar() {
             </button>
           </div>
 
-          {/* Drawer Content: Pure Navigation List (No Call Box, No Extraneous Text) */}
           <div className="flex-1 overflow-y-auto px-6 py-4 flex flex-col justify-between relative z-10">
-            {/* Itemized Navigation with Clean Gold Chevrons & Dividers */}
             <nav aria-label="Mobile Navigation" className="divide-y divide-white/[0.08]">
               {navItems.map((item) => {
                 const active = pathname === item.href;
@@ -410,12 +380,10 @@ export default function Navbar() {
                         ? "text-[#C2A062] font-semibold"
                         : "text-white/90 hover:text-[#D4B57A]"
                     }`}
-                    style={{ fontFamily: "'Manrope', sans-serif" }}
                   >
                     <span className="text-[17.5px] font-medium tracking-wide">
                       {item.label}
                     </span>
-                    {/* Premier Gold Right Chevron '>' */}
                     <svg
                       viewBox="0 0 24 24"
                       className="w-4 h-4 fill-none stroke-current stroke-2 text-[#C2A062]/70 group-hover:text-[#D4B57A] group-hover:translate-x-1.5 transition-all"
@@ -427,14 +395,12 @@ export default function Navbar() {
               })}
             </nav>
 
-            {/* Bottom Section: Premier Full-Width Action Button */}
             <div className="pt-6 pb-6">
               <Link
                 href="/contact"
                 id="mobile-drawer-get-quote-btn"
                 onClick={() => setMobileOpen(false)}
                 className="group flex items-center justify-center gap-2.5 w-full h-14 rounded-2xl bg-[#C2A062] hover:bg-[#D4B57A] active:scale-[0.98] text-[#080C14] font-bold text-sm tracking-[0.14em] uppercase shadow-[0_6px_25px_rgba(194,160,98,0.35)] transition-all cursor-pointer select-none"
-                style={{ fontFamily: "'Manrope', sans-serif" }}
               >
                 <span>Get a Free Quote</span>
                 <svg viewBox="0 0 16 16" className="w-4 h-4 fill-none stroke-current stroke-2 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">

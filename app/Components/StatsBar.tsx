@@ -33,7 +33,6 @@ const stats = [
 export default function StatsBar() {
   return (
     <section id="luxury-stats-bar" className="relative z-20 bg-[#141d27] border-y border-[#C2A062]/25 py-8 overflow-hidden shadow-2xl">
-      {/* Subtle gold shimmer line */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#C2A062]/60 to-transparent" />
       
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -49,16 +48,10 @@ export default function StatsBar() {
               >
                 {item.num}
               </span>
-              <span
-                className="text-xs sm:text-sm font-bold uppercase tracking-wider text-white"
-                style={{ fontFamily: "Manrope, sans-serif" }}
-              >
+              <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-white">
                 {item.label}
               </span>
-              <span
-                className="text-[11px] text-white/50 tracking-wide mt-0.5"
-                style={{ fontFamily: "Manrope, sans-serif" }}
-              >
+              <span className="text-[11px] text-white/50 tracking-wide mt-0.5">
                 {item.sub}
               </span>
             </div>

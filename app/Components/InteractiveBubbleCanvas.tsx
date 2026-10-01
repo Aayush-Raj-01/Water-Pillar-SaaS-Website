@@ -30,7 +30,6 @@ export default function InteractiveBubbleCanvas() {
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
-    // Pause canvas animation when scrolled out of view to eliminate lag
     const observer = new IntersectionObserver(
       ([entry]) => {
         isVisible = entry.isIntersecting;
@@ -51,7 +50,6 @@ export default function InteractiveBubbleCanvas() {
 
     window.addEventListener("resize", handleResize);
 
-    // Generate bubbles
     const bubbleCount = Math.min(32, Math.floor(width / 45));
     const bubbles: Bubble[] = [];
 
@@ -63,7 +61,7 @@ export default function InteractiveBubbleCanvas() {
       return {
         x: Math.random() * width,
         y: initialY !== undefined ? initialY : height + Math.random() * 200,
-        radius: Math.random() * 9 + 4, // 4px to 13px
+        radius: Math.random() * 9 + 4,
         speedY: Math.random() * 0.8 + 0.5,
         speedX: (Math.random() - 0.5) * 0.3,
         alpha: Math.random() * 0.45 + 0.2,
@@ -78,7 +76,6 @@ export default function InteractiveBubbleCanvas() {
       bubbles.push(createBubble(Math.random() * height));
     }
 
-    // Interactive mouse interaction
     let mouseX = -1000;
     let mouseY = -1000;
 
@@ -88,7 +85,6 @@ export default function InteractiveBubbleCanvas() {
     };
 
     const handleClick = (e: MouseEvent) => {
-      // Spawn tiny burst of mini-bubbles on click
       for (let i = 0; i < 6; i++) {
         bubbles.push({
           x: e.clientX + (Math.random() - 0.5) * 20,
@@ -111,17 +107,14 @@ export default function InteractiveBubbleCanvas() {
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
     window.addEventListener("click", handleClick, { passive: true });
 
-    // Render loop
     const render = () => {
       ctx.clearRect(0, 0, width, height);
 
       bubbles.forEach((b, idx) => {
-        // Move upward
         b.y -= b.speedY;
         b.wobbleAngle += b.wobbleSpeed;
         const currentX = b.x + Math.sin(b.wobbleAngle) * b.wobbleDistance;
 
-        // Subtle mouse repulsion
         const dx = mouseX - currentX;
         const dy = mouseY - b.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
@@ -130,20 +123,17 @@ export default function InteractiveBubbleCanvas() {
           b.x -= (dx / dist) * force * 2.5;
         }
 
-        // Draw bubble with realistic aquatic reflection
         ctx.save();
         ctx.beginPath();
         ctx.arc(currentX, b.y, b.radius, 0, Math.PI * 2);
 
-        // Color & gradient
-        let primaryColor = "rgba(54, 183, 201,"; // cyan
+        let primaryColor = "rgba(54, 183, 201,";
         if (b.colorType === "gold") {
           primaryColor = "rgba(194, 160, 98,";
         } else if (b.colorType === "white") {
           primaryColor = "rgba(255, 255, 255,";
         }
 
-        // Outer glow gradient
         const grad = ctx.createRadialGradient(
           currentX - b.radius * 0.3,
           b.y - b.radius * 0.3,
@@ -159,12 +149,10 @@ export default function InteractiveBubbleCanvas() {
         ctx.fillStyle = grad;
         ctx.fill();
 
-        // Delicate bubble rim stroke
         ctx.lineWidth = 1;
         ctx.strokeStyle = `${primaryColor} ${b.alpha * 0.6})`;
         ctx.stroke();
 
-        // Specular highlight (the curved reflection dot on water bubble)
         ctx.beginPath();
         ctx.arc(
           currentX - b.radius * 0.38,
@@ -178,7 +166,6 @@ export default function InteractiveBubbleCanvas() {
 
         ctx.restore();
 
-        // Respawn when reaching top or out of screen
         if (b.y + b.radius < -20) {
           bubbles[idx] = createBubble();
         }

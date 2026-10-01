@@ -145,7 +145,7 @@ function ShowcaseCard({ product, index }: { product: ProductItem; index: number 
       return {
         x: randomX,
         y: initialY !== undefined ? initialY : height + Math.random() * 30,
-        radius: Math.random() * 5.5 + 3, // 3px to 8.5px
+        radius: Math.random() * 5.5 + 3,
         speedY: Math.random() * 1.2 + 0.8,
         speedX: (Math.random() - 0.5) * 0.25,
         alpha: Math.random() * 0.35 + 0.5,
@@ -185,7 +185,6 @@ function ShowcaseCard({ product, index }: { product: ProductItem; index: number 
         ctx.beginPath();
         ctx.arc(currentX, b.y, b.radius, 0, Math.PI * 2);
 
-        // Spherical translucent water bubble gradient
         const grad = ctx.createRadialGradient(
           currentX - b.radius * 0.3,
           b.y - b.radius * 0.3,
@@ -204,7 +203,6 @@ function ShowcaseCard({ product, index }: { product: ProductItem; index: number 
         ctx.fillStyle = grad;
         ctx.fill();
 
-        // White specular reflection highlight
         ctx.beginPath();
         ctx.arc(
           currentX - b.radius * 0.35,
@@ -248,10 +246,8 @@ function ShowcaseCard({ product, index }: { product: ProductItem; index: number 
       onMouseLeave={() => setIsHovered(false)}
       className="group relative flex flex-col rounded-2xl bg-white border border-[#E2DDD3] hover:border-[#C2A062] shadow-[0_4px_24px_rgba(17,24,32,0.05)] hover:shadow-[0_20px_45px_rgba(194,160,98,0.2)] transition-all duration-500 hover:-translate-y-2 overflow-hidden select-none"
     >
-      {/* Top Hairline Gold Glow */}
       <div className="h-1 w-full bg-gradient-to-r from-transparent via-[#C2A062] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-      {/* ── 1. ARCHITECTURAL PHOTOGRAPH & CANVAS CONTAINER ── */}
       <div
         ref={containerRef}
         className="relative h-64 sm:h-72 w-full overflow-hidden bg-[#ECE7DE]"
@@ -265,23 +261,19 @@ function ShowcaseCard({ product, index }: { product: ProductItem; index: number 
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
         />
 
-        {/* Ambient tonal gradient */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-black/15 pointer-events-none" />
 
-        {/* Diagonal shimmer sheen on hover */}
         <div
           className={`absolute inset-0 bg-gradient-to-tr from-transparent via-white/15 to-transparent pointer-events-none transition-opacity duration-500 ${
             isHovered ? "opacity-100" : "opacity-0"
           }`}
         />
 
-        {/* Interactive Rising Bubbles Canvas */}
         <canvas
           ref={canvasRef}
           className="absolute inset-0 w-full h-full pointer-events-none z-10"
         />
 
-        {/* Top Badges */}
         <div className="absolute top-3.5 left-3.5 right-3.5 flex items-center justify-between z-20 pointer-events-none">
           <span className="px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase bg-[#0B111A]/80 backdrop-blur-md border border-white/15 text-white shadow-sm">
             {product.tag}
@@ -291,7 +283,6 @@ function ShowcaseCard({ product, index }: { product: ProductItem; index: number 
           </span>
         </div>
 
-        {/* Active Bubble Aeration Indicator (on hover) */}
         <div
           className={`absolute bottom-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-[#0B111A]/85 backdrop-blur-md border border-[#36B7C9]/50 text-[#5ECFDF] text-[10px] font-semibold tracking-wider flex items-center gap-1.5 transition-all duration-300 z-20 shadow-md ${
             isHovered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2 pointer-events-none"
@@ -302,16 +293,13 @@ function ShowcaseCard({ product, index }: { product: ProductItem; index: number 
         </div>
       </div>
 
-      {/* ── 2. EDITORIAL CONTENT ── */}
       <div className="p-5 sm:p-6 flex flex-col flex-1 justify-between bg-white">
         <div>
-          {/* Dimension Specs Chip */}
           <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-[#F8F5EE] border border-[#E8E1D5] text-[#916E36] text-[11px] font-mono font-medium tracking-wide w-fit mb-3">
             <span className="w-1.5 h-1.5 rounded-full bg-[#C2A062]" />
             <span>{product.specs}</span>
           </div>
 
-          {/* Title */}
           <h3
             className="text-2xl font-bold text-[#111820] group-hover:text-[#A8885A] transition-colors leading-snug mb-2.5"
             style={{ fontFamily: "'Cormorant Garamond', Georgia, serif" }}
@@ -319,21 +307,15 @@ function ShowcaseCard({ product, index }: { product: ProductItem; index: number 
             {product.title}
           </h3>
 
-          {/* Description */}
-          <p
-            className="text-[#111820]/65 text-[13.5px] leading-relaxed mb-4 line-clamp-3"
-            style={{ fontFamily: "'Manrope', sans-serif" }}
-          >
+          <p className="text-[#111820]/65 text-[13.5px] leading-relaxed mb-4 line-clamp-3">
             {product.desc}
           </p>
 
-          {/* Architectural Feature Highlights */}
           <div className="flex flex-wrap gap-1.5 mb-6">
             {product.features.map((feat, fi) => (
               <span
                 key={fi}
                 className="text-[10.5px] font-semibold text-[#111820]/75 bg-[#F2EFE9] border border-[#E5DFD5]/60 px-2.5 py-1 rounded-md tracking-wide"
-                style={{ fontFamily: "'Manrope', sans-serif" }}
               >
                 {feat}
               </span>
@@ -341,7 +323,6 @@ function ShowcaseCard({ product, index }: { product: ProductItem; index: number 
           </div>
         </div>
 
-        {/* ── 3. PREMIER OBSIDIAN & GOLD ACTION BUTTON ── */}
         <div>
           <Link
             href={`https://wa.me/919834123136?text=Hello%20Water%20Bubble%20Pillar%2C%20I%20am%20interested%20in%20the%20${encodeURIComponent(
@@ -351,12 +332,9 @@ function ShowcaseCard({ product, index }: { product: ProductItem; index: number 
             rel="noopener noreferrer"
             id={`${product.id}-enquire-btn`}
             className="group/btn relative w-full h-11 sm:h-12 px-3.5 sm:px-4 rounded-xl bg-[#111820] hover:bg-[#C2A062] text-[#F7F4EE] hover:text-[#0B111A] font-bold text-xs sm:text-[12.5px] tracking-wider uppercase flex items-center justify-center gap-2 sm:gap-2.5 border border-[#C2A062]/40 hover:border-[#C2A062] shadow-[0_4px_14px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_25px_rgba(194,160,98,0.35)] transition-all duration-300 cursor-pointer select-none overflow-hidden"
-            style={{ fontFamily: "'Manrope', sans-serif" }}
           >
-            {/* Shimmer light sweep */}
             <div className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none" />
 
-            {/* WhatsApp Icon */}
             <svg
               className="w-4 h-4 fill-current shrink-0 text-[#25D366] group-hover/btn:text-[#0B111A] transition-all duration-300 group-hover/btn:scale-110"
               viewBox="0 0 24 24"
@@ -399,18 +377,13 @@ export default function ProductShowcaseSection() {
 
   return (
     <section id="product-range" className="section-ivory pt-10 sm:pt-14 pb-14 sm:pb-18 relative overflow-hidden">
-      {/* Ambient background lighting glow */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-3/4 max-w-4xl h-96 bg-[#C2A062]/8 blur-3xl pointer-events-none rounded-full" />
 
       <div className="container-site relative z-10">
-        {/* ── SECTION HEADER ── */}
         <div className="flex flex-col items-center justify-center text-center w-full max-w-4xl mx-auto mb-6 sm:mb-8">
           <div className="inline-flex items-center justify-center gap-3 mb-3 mx-auto">
             <span className="w-8 h-px bg-[#C2A062]" />
-            <p
-              className="text-[#C2A062] text-xs tracking-[0.25em] uppercase font-bold text-center"
-              style={{ fontFamily: "Manrope, sans-serif" }}
-            >
+            <p className="text-[#C2A062] text-xs tracking-[0.25em] uppercase font-bold text-center">
               Curated Architectural Editions
             </p>
             <span className="w-8 h-px bg-[#C2A062]" />
@@ -423,21 +396,16 @@ export default function ProductShowcaseSection() {
             Explore Our Water Bubble Pillars
           </h2>
 
-          <p
-            className="text-[#111820]/70 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto text-center"
-            style={{ fontFamily: "'Manrope', sans-serif" }}
-          >
+          <p className="text-[#111820]/70 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto text-center">
             Precision-engineered acrylic water features with hypnotic rising aeration and synchronized RGB spectrum illumination—crafted to your exact spatial proportions.
           </p>
 
-          {/* Gold Decorative Center Line */}
           <div
             className="w-16 h-0.5 bg-[#C2A062] rounded-full mx-auto mt-5"
             style={{ margin: "20px auto 0 auto" }}
           />
         </div>
 
-        {/* ── ATELIER CATEGORY FILTER TABS ── */}
         <div className="flex items-center justify-center flex-wrap gap-2 sm:gap-3 mb-10 sm:mb-12">
           {filterTabs.map((tab) => {
             const isActive = activeTab === tab.id;
@@ -451,7 +419,6 @@ export default function ProductShowcaseSection() {
                     ? "bg-[#111820] text-[#C2A062] border border-[#C2A062] shadow-sm"
                     : "bg-white/80 hover:bg-white text-[#111820]/75 hover:text-[#111820] border border-[#111820]/10 hover:border-[#C2A062]/50 shadow-[0_2px_8px_rgba(0,0,0,0.02)]"
                 }`}
-                style={{ fontFamily: "'Manrope', sans-serif" }}
               >
                 {tab.label}
               </button>
@@ -459,7 +426,6 @@ export default function ProductShowcaseSection() {
           })}
         </div>
 
-        {/* ── SHOWCASE GRID ── */}
         <div
           className={`grid gap-6 xl:gap-7 justify-center ${
             filteredProducts.length === 1

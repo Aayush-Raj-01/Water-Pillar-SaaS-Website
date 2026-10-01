@@ -1,11 +1,45 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://waterbubblepillar.com";
+
 export const metadata: Metadata = {
-  title: "Customize Your Water Bubble Pillar | Sizes, Lights and Finishes",
+  title: "Custom Water Bubble Pillar Options | Dimensions, Shapes & Finishes",
   description:
-    "Customize the size, shape, RGB lighting, metallic finish, artificial fish and arrangement of your Water Bubble Pillar.",
+    "Tailor your acrylic water bubble pillar: custom heights from 6ft to 15ft+, cylindrical or square geometry, RGBW illumination, and architectural metallic base finishes.",
   alternates: { canonical: "/customization" },
+  openGraph: {
+    title: "Custom Water Bubble Pillar Options | Sizes, Lights & Finishes",
+    description:
+      "Customize size, shape, RGB lighting, metallic finishes, and arrangements for your bespoke water bubble pillar.",
+    url: "/customization",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Custom Water Bubble Pillar Options | Water Bubble Pillar",
+    description:
+      "Tailor your acrylic water bubble pillar: custom heights, shapes, lighting, and finishes.",
+  },
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: baseUrl,
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Customization",
+      item: `${baseUrl}/customization`,
+    },
+  ],
 };
 
 const sections = [
@@ -81,30 +115,31 @@ const whatToSend = [
   "Expected installation timeline",
 ];
 
-
 export default function CustomizationPage() {
   return (
     <>
-      {/* Header */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <section id="customization-header" className="relative pt-32 pb-20 section-charcoal overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute bottom-0 left-0 w-80 h-80 rounded-full bg-[#36B7C9] blur-3xl" />
         </div>
         <div className="relative container-site text-center max-w-3xl mx-auto">
-          <p className="text-[#C2A062] text-xs tracking-[0.25em] uppercase mb-3 font-bold" style={{ fontFamily: "Manrope, sans-serif" }}>
+          <p className="text-[#C2A062] text-xs tracking-[0.25em] uppercase mb-3 font-bold">
             Made for Your Space
           </p>
           <h1 className="heading-serif text-5xl md:text-6xl text-white mb-5">
             Designed Especially for Your Space
           </h1>
           <div className="gold-line mx-auto" />
-          <p className="text-white/65 text-base mt-4" style={{ fontFamily: "Manrope, sans-serif" }}>
+          <p className="text-white/65 text-base mt-4">
             No two interiors are exactly the same. That is why we offer multiple customization options to make your Water Bubble Pillar suitable for your space.
           </p>
         </div>
       </section>
 
-      {/* Customization Grid */}
       <section id="customization-options" className="section-ivory section-padding">
         <div className="container-site">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
@@ -118,18 +153,18 @@ export default function CustomizationPage() {
                   {sec.icon}
                 </div>
                 <h2 className="heading-serif text-2xl text-[#111820] mb-3">{sec.title}</h2>
-                <p className="text-[#111820]/65 text-sm mb-4 leading-relaxed" style={{ fontFamily: "Manrope, sans-serif" }}>
+                <p className="text-[#111820]/65 text-sm mb-4 leading-relaxed">
                   {sec.desc}
                 </p>
                 {sec.note && (
-                  <p className="text-[#111820]/45 text-xs italic mb-3" style={{ fontFamily: "Manrope, sans-serif" }}>
+                  <p className="text-[#111820]/45 text-xs italic mb-3">
                     {sec.note}
                   </p>
                 )}
                 {sec.items.length > 0 && (
                   <ul className="grid grid-cols-1 gap-2">
                     {sec.items.map((item) => (
-                      <li key={item} className="flex items-center gap-2 text-[#111820]/70 text-sm" style={{ fontFamily: "Manrope, sans-serif" }}>
+                      <li key={item} className="flex items-center gap-2 text-[#111820]/70 text-sm">
                         <span className="w-1.5 h-1.5 rounded-full bg-[#C2A062] flex-shrink-0" />
                         {item}
                       </li>
@@ -140,27 +175,22 @@ export default function CustomizationPage() {
             ))}
           </div>
 
-
-          {/* What to Send */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="heading-serif text-3xl md:text-4xl text-[#111820] mb-4">
                 What to Send for a Custom Quote
               </h2>
               <div className="gold-line-left" />
-              <p className="text-[#111820]/65 text-sm mb-6" style={{ fontFamily: "Manrope, sans-serif" }}>
+              <p className="text-[#111820]/65 text-sm mb-6">
                 Please share the following details so our team can recommend the most suitable design:
               </p>
               <ol className="flex flex-col gap-4">
                 {whatToSend.map((item, i) => (
                   <li key={i} className="flex items-center gap-4">
-                    <span
-                      className="w-8 h-8 rounded-full bg-[#C2A062] flex items-center justify-center text-white text-sm font-bold flex-shrink-0"
-                      style={{ fontFamily: "Manrope, sans-serif" }}
-                    >
+                    <span className="w-8 h-8 rounded-full bg-[#C2A062] flex items-center justify-center text-white text-sm font-bold flex-shrink-0">
                       {i + 1}
                     </span>
-                    <span className="text-[#111820]/70 text-sm" style={{ fontFamily: "Manrope, sans-serif" }}>
+                    <span className="text-[#111820]/70 text-sm">
                       {item}
                     </span>
                   </li>
@@ -177,7 +207,7 @@ export default function CustomizationPage() {
               <h3 className="heading-serif text-2xl text-white mb-3">
                 Ready to Get Started?
               </h3>
-              <p className="text-white/60 text-sm mb-6" style={{ fontFamily: "Manrope, sans-serif" }}>
+              <p className="text-white/60 text-sm mb-6">
                 Send your details directly on WhatsApp for a fast, personalized response from our team.
               </p>
               <Link
@@ -189,7 +219,7 @@ export default function CustomizationPage() {
               >
                 Send Details on WhatsApp
               </Link>
-              <p className="text-white/30 text-xs mt-4" style={{ fontFamily: "Manrope, sans-serif" }}>
+              <p className="text-white/30 text-xs mt-4">
                 Or call us at +91 98341 23136
               </p>
             </div>

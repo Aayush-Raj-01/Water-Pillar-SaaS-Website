@@ -111,19 +111,13 @@ export default function SpaceShowcase() {
 
   return (
     <section id="architectural-spaces" className="pt-10 sm:pt-14 pb-16 sm:pb-20 section-ivory relative overflow-hidden">
-      {/* Soft ambient lighting glow */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-[#C2A062]/8 rounded-full blur-3xl pointer-events-none" />
 
       <div className="container-site max-w-[1360px] mx-auto relative z-10">
-        
-        {/* ── 1. SECTION HEADER ── */}
         <div className="flex flex-col items-center justify-center text-center w-full max-w-4xl mx-auto mb-6 sm:mb-8">
           <div className="inline-flex items-center justify-center gap-3 mb-3 mx-auto">
             <span className="w-8 h-px bg-[#C2A062]" />
-            <p
-              className="text-[#C2A062] text-xs uppercase tracking-[0.25em] font-bold text-center"
-              style={{ fontFamily: "Manrope, sans-serif" }}
-            >
+            <p className="text-[#C2A062] text-xs uppercase tracking-[0.25em] font-bold text-center">
               Bespoke Environments
             </p>
             <span className="w-8 h-px bg-[#C2A062]" />
@@ -136,10 +130,7 @@ export default function SpaceShowcase() {
             Engineered for <span className="italic font-normal">Extraordinary</span> Spaces
           </h2>
 
-          <p
-            className="text-[#111820]/70 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto text-center"
-            style={{ fontFamily: "'Manrope', sans-serif" }}
-          >
+          <p className="text-[#111820]/70 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto text-center">
             Discover how Water Bubble Pillars elevate residences, world-class hotels, dining lounges, and corporate atriums across India.
           </p>
 
@@ -149,7 +140,6 @@ export default function SpaceShowcase() {
           />
         </div>
 
-        {/* ── 2. SECTOR FILTER PILLS ── */}
         <div className="flex items-center justify-center flex-wrap gap-2 sm:gap-3 mb-10 sm:mb-12 px-2 sm:px-0 mx-auto max-w-4xl text-center">
           {filterTabs.map((tab) => {
             const isActive = activeFilter === tab.id;
@@ -163,7 +153,6 @@ export default function SpaceShowcase() {
                     ? "bg-[#111820] text-[#C2A062] border border-[#C2A062] shadow-[0_4px_16px_rgba(17,24,32,0.18)]"
                     : "bg-white/85 text-[#111820]/70 hover:bg-white hover:text-[#111820] border border-[#111820]/10 hover:border-[#C2A062]/40 shadow-sm"
                 }`}
-                style={{ fontFamily: "'Manrope', sans-serif" }}
               >
                 {tab.label}
               </button>
@@ -171,10 +160,8 @@ export default function SpaceShowcase() {
           })}
         </div>
 
-        {/* ── 3. EDITORIAL SPATIAL MONOGRAPH GRID ── */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-7 justify-center">
           {displayedProjects.map((project, index) => {
-            // Asymmetrical editorial sizing when in "all" view, or centered when filtered
             const isFullFilter = activeFilter !== "all";
             const colSpan = isFullFilter
               ? "lg:col-span-8 lg:col-start-3"
@@ -196,7 +183,6 @@ export default function SpaceShowcase() {
                 key={project.id}
                 className={`${colSpan} group rounded-2xl sm:rounded-3xl bg-white border border-[#E2DDD3] hover:border-[#C2A062] shadow-[0_4px_25px_rgba(17,24,32,0.04)] hover:shadow-[0_20px_45px_rgba(194,160,98,0.18)] transition-all duration-500 hover:-translate-y-1.5 flex flex-col overflow-hidden`}
               >
-                {/* Visual Viewport */}
                 <div className={`relative ${imageHeight} w-full overflow-hidden bg-[#111820]`}>
                   <Image
                     src={project.image}
@@ -206,10 +192,8 @@ export default function SpaceShowcase() {
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
 
-                  {/* Ambient Gradient Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
 
-                  {/* Top Badges */}
                   <div className="absolute top-3.5 left-3.5 right-3.5 flex items-center justify-between z-10 pointer-events-none">
                     <span className="px-3 py-1 rounded-full text-[10.5px] font-bold tracking-wider uppercase bg-[#0B111A]/85 backdrop-blur-md border border-white/15 text-white shadow-sm inline-flex items-center gap-1.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#C2A062] animate-pulse" />
@@ -220,7 +204,6 @@ export default function SpaceShowcase() {
                     </span>
                   </div>
 
-                  {/* Bottom Subtitle Ribbon */}
                   <div className="absolute bottom-3 left-3.5 right-3.5 z-10 pointer-events-none">
                     <p className="text-white/90 text-xs sm:text-[13px] font-medium leading-snug drop-shadow-md">
                       {project.subtitle}
@@ -228,7 +211,6 @@ export default function SpaceShowcase() {
                   </div>
                 </div>
 
-                {/* Editorial Content */}
                 <div className="p-6 sm:p-7 flex flex-col flex-1 justify-between bg-white">
                   <div>
                     <h3
@@ -238,20 +220,15 @@ export default function SpaceShowcase() {
                       {project.title}
                     </h3>
 
-                    <p
-                      className="text-[#111820]/65 text-[13.5px] leading-relaxed mb-5 line-clamp-3"
-                      style={{ fontFamily: "'Manrope', sans-serif" }}
-                    >
+                    <p className="text-[#111820]/65 text-[13.5px] leading-relaxed mb-5 line-clamp-3">
                       {project.desc}
                     </p>
 
-                    {/* Architectural Specifications Pills */}
                     <div className="flex flex-wrap gap-1.5 mb-6">
                       {project.specs.map((spec, si) => (
                         <span
                           key={si}
                           className="text-[11px] font-semibold text-[#111820]/80 bg-[#F6F3EC] border border-[#E5DFD5]/70 px-2.5 py-1 rounded-md"
-                          style={{ fontFamily: "'Manrope', sans-serif" }}
                         >
                           {spec}
                         </span>
@@ -259,14 +236,12 @@ export default function SpaceShowcase() {
                     </div>
                   </div>
 
-                  {/* Action CTA Button */}
                   <div className="pt-4 border-t border-[#F0EBE1]">
                     <Link
                       href={`https://wa.me/919834123136?text=${encodeURIComponent(project.whatsappMessage)}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="group/btn relative w-full h-11.5 px-4 rounded-xl bg-[#111820] hover:bg-[#C2A062] text-[#F7F4EE] hover:text-[#0B111A] font-bold text-xs tracking-wider uppercase flex items-center justify-center gap-2 border border-[#C2A062]/40 hover:border-[#C2A062] shadow-[0_4px_14px_rgba(0,0,0,0.06)] hover:shadow-[0_6px_20px_rgba(194,160,98,0.35)] transition-all duration-300 cursor-pointer select-none overflow-hidden"
-                      style={{ fontFamily: "'Manrope', sans-serif" }}
                     >
                       <span className="whitespace-nowrap">{project.ctaLabel}</span>
                       <svg
@@ -284,7 +259,6 @@ export default function SpaceShowcase() {
           })}
         </div>
 
-        {/* ── 4. ARCHITECTURAL CONSULTATION BANNER ── */}
         <div className="mt-12 sm:mt-16 rounded-2xl border border-[#E2DDD3] bg-white/90 backdrop-blur-md p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-[0_8px_30px_rgba(17,24,32,0.04)]">
           <div className="flex items-center gap-4 text-center md:text-left">
             <div className="w-12 h-12 rounded-xl bg-[#C2A062]/15 border border-[#C2A062]/30 flex items-center justify-center text-[#C2A062] shrink-0">
@@ -299,10 +273,7 @@ export default function SpaceShowcase() {
               >
                 Planning a Custom Architectural Feature for Your Space?
               </h4>
-              <p
-                className="text-xs sm:text-sm text-[#111820]/65"
-                style={{ fontFamily: "'Manrope', sans-serif" }}
-              >
+              <p className="text-xs sm:text-sm text-[#111820]/65">
                 Share your architectural floor plans or site photographs with our engineering team for customized 3D dimensions and illumination planning.
               </p>
             </div>
@@ -313,7 +284,6 @@ export default function SpaceShowcase() {
               href="/contact"
               id="spaces-calc-cta"
               className="flex-1 md:flex-initial px-5 py-3 rounded-xl bg-[#F4EFE6] hover:bg-[#EBE4D8] text-[#111820] border border-[#E0D7C7] text-xs font-bold tracking-wider uppercase transition-colors text-center"
-              style={{ fontFamily: "'Manrope', sans-serif" }}
             >
               Request Quote
             </Link>
@@ -321,7 +291,6 @@ export default function SpaceShowcase() {
               href="tel:+919834123136"
               id="spaces-call-cta"
               className="flex-1 md:flex-initial px-5 py-3 rounded-xl bg-[#C2A062] hover:bg-[#D4B57A] text-[#080C14] text-xs font-bold tracking-wider uppercase transition-all shadow-sm hover:shadow-md text-center"
-              style={{ fontFamily: "'Manrope', sans-serif" }}
             >
               Call: +91 98341 23136
             </a>

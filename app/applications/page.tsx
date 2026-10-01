@@ -2,11 +2,54 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://waterbubblepillar.com";
+
 export const metadata: Metadata = {
-  title: "Water Bubble Pillars for Homes, Hotels, Offices and Events",
+  title: "Water Bubble Pillar Applications | Luxury Homes, Hotels & Commercial Spaces",
   description:
-    "Discover Water Bubble Pillar applications for homes, hotels, restaurants, offices, showrooms, salons, spas, weddings and commercial spaces.",
+    "Discover versatile Water Bubble Pillar installations for luxury residences, 5-star hotel lobbies, corporate offices, dining lounges, and grand event venues across India.",
   alternates: { canonical: "/applications" },
+  openGraph: {
+    title: "Water Bubble Pillar Applications | Luxury Homes, Hotels & Offices",
+    description:
+      "Discover Water Bubble Pillar installations for homes, hotels, restaurants, corporate receptions, salons, spas, and wedding stages.",
+    url: "/applications",
+    type: "website",
+    images: [
+      {
+        url: "/img/home_living_room.jpg",
+        width: 1200,
+        height: 800,
+        alt: "Water Bubble Pillar installed in a luxury interior",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Water Bubble Pillar Applications | Water Bubble Pillar",
+    description:
+      "Discover versatile Water Bubble Pillar installations for residential and commercial spaces.",
+    images: ["/img/home_living_room.jpg"],
+  },
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: baseUrl,
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Applications",
+      item: `${baseUrl}/applications`,
+    },
+  ],
 };
 
 const applications = [
@@ -75,27 +118,29 @@ const applications = [
 export default function ApplicationsPage() {
   return (
     <>
-      {/* Header */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <section id="applications-header" className="relative pt-32 pb-20 section-charcoal overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-0 w-96 h-96 rounded-full bg-[#C2A062] blur-3xl" />
           <div className="absolute bottom-0 right-0 w-80 h-80 rounded-full bg-[#36B7C9] blur-3xl" />
         </div>
         <div className="relative container-site text-center max-w-3xl mx-auto">
-          <p className="text-[#C2A062] text-xs tracking-[0.25em] uppercase mb-3 font-bold" style={{ fontFamily: "Manrope, sans-serif" }}>
+          <p className="text-[#C2A062] text-xs tracking-[0.25em] uppercase mb-3 font-bold">
             Where We Install
           </p>
           <h1 className="heading-serif text-5xl md:text-6xl text-white mb-5">
             One Feature, Many Possibilities
           </h1>
           <div className="gold-line mx-auto" />
-          <p className="text-white/65 text-base mt-4" style={{ fontFamily: "Manrope, sans-serif" }}>
+          <p className="text-white/65 text-base mt-4">
             Water Bubble Pillars can be customized for virtually any residential or commercial interior space.
           </p>
         </div>
       </section>
 
-      {/* Application Cards */}
       <section id="applications-grid" className="section-ivory section-padding">
         <div className="container-site">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -113,7 +158,7 @@ export default function ApplicationsPage() {
                 </div>
                 <div className="p-6">
                   <h2 className="heading-serif text-xl text-[#111820] mb-2">{app.title}</h2>
-                  <p className="text-[#111820]/65 text-sm leading-relaxed" style={{ fontFamily: "Manrope, sans-serif" }}>
+                  <p className="text-[#111820]/65 text-sm leading-relaxed">
                     {app.desc}
                   </p>
                 </div>
@@ -121,13 +166,12 @@ export default function ApplicationsPage() {
             ))}
           </div>
 
-          {/* Bottom CTA */}
           <div className="mt-16 text-center">
             <div className="bg-[#111820] rounded-2xl p-10 max-w-2xl mx-auto">
               <h2 className="heading-serif text-3xl text-white mb-4">
                 Planning an Interior Project?
               </h2>
-              <p className="text-white/65 text-base mb-6" style={{ fontFamily: "Manrope, sans-serif" }}>
+              <p className="text-white/65 text-base mb-6">
                 Our team works with interior designers, architects and property owners to develop project-specific Water Bubble Pillar arrangements.
               </p>
               <Link

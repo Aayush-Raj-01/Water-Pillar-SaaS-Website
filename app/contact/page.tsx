@@ -32,39 +32,78 @@ export default function ContactPage() {
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setSubmitting(true);
-    // Simulate processing delay then redirect to thank-you
     await new Promise((r) => setTimeout(r, 1000));
     router.push("/thank-you");
   }
 
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://waterbubblepillar.com";
+
+  const contactPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    name: "Contact Water Bubble Pillar",
+    description:
+      "Get in touch with Water Bubble Pillar for quotations, design consultation, and turnkey installation across India.",
+    url: `${baseUrl}/contact`,
+    mainEntity: {
+      "@type": "LocalBusiness",
+      name: "Water Bubble Pillar",
+      telephone: "+919834123136",
+      email: "waterbubblewall01@gmail.com",
+      areaServed: "India",
+    },
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: baseUrl,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Contact",
+        item: `${baseUrl}/contact`,
+      },
+    ],
+  };
+
   return (
     <>
-      {/* Header */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(contactPageSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <section id="contact-header" className="relative pt-32 pb-20 section-charcoal overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-0 w-96 h-96 rounded-full bg-[#C2A062] blur-3xl" />
         </div>
         <div className="relative container-site text-center max-w-3xl mx-auto">
-          <p className="text-[#C2A062] text-xs tracking-[0.25em] uppercase mb-3 font-bold" style={{ fontFamily: "Manrope, sans-serif" }}>
+          <p className="text-[#C2A062] text-xs tracking-[0.25em] uppercase mb-3 font-bold">
             Get in Touch
           </p>
           <h1 className="heading-serif text-5xl md:text-6xl text-white mb-5">
-            Let's Create Something Beautiful for Your Space
+            Let&apos;s Create Something Beautiful for Your Space
           </h1>
           <div className="gold-line mx-auto" />
-          <p className="text-white/65 text-base mt-4" style={{ fontFamily: "Manrope, sans-serif" }}>
+          <p className="text-white/65 text-base mt-4">
             Share your idea, site photograph and approximate dimensions. Our team will help you choose a suitable Water Bubble Pillar.
           </p>
         </div>
       </section>
 
-      {/* Contact Body */}
       <section id="contact-body" className="section-ivory section-padding">
         <div className="container-site grid grid-cols-1 lg:grid-cols-5 gap-12">
-
-          {/* Left: Info */}
           <div className="lg:col-span-2 flex flex-col gap-6">
-            {/* Call */}
             <div id="contact-call-info" className="bg-white rounded-2xl p-7 border border-[#111820]/8 shadow-sm">
               <div className="w-11 h-11 rounded-xl bg-[#C2A062]/12 flex items-center justify-center text-[#C2A062] mb-4">
                 <svg viewBox="0 0 24 24" className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.5}>
@@ -72,15 +111,14 @@ export default function ContactPage() {
                 </svg>
               </div>
               <h2 className="heading-serif text-xl text-[#111820] mb-3">Call Us</h2>
-              <a href="tel:+919834123136" id="contact-phone-1" className="block text-[#111820]/75 hover:text-[#C2A062] transition-colors font-semibold mb-1" style={{ fontFamily: "Manrope, sans-serif" }}>
+              <a href="tel:+919834123136" id="contact-phone-1" className="block text-[#111820]/75 hover:text-[#C2A062] transition-colors font-semibold mb-1">
                 +91 98341 23136
               </a>
-              <a href="tel:+917011548364" id="contact-phone-2" className="block text-[#111820]/75 hover:text-[#C2A062] transition-colors font-semibold" style={{ fontFamily: "Manrope, sans-serif" }}>
+              <a href="tel:+917011548364" id="contact-phone-2" className="block text-[#111820]/75 hover:text-[#C2A062] transition-colors font-semibold">
                 +91 70115 48364
               </a>
             </div>
 
-            {/* Email */}
             <div id="contact-email-info" className="bg-white rounded-2xl p-7 border border-[#111820]/8 shadow-sm">
               <div className="w-11 h-11 rounded-xl bg-[#C2A062]/12 flex items-center justify-center text-[#C2A062] mb-4">
                 <svg viewBox="0 0 24 24" className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.5}>
@@ -88,12 +126,11 @@ export default function ContactPage() {
                 </svg>
               </div>
               <h2 className="heading-serif text-xl text-[#111820] mb-3">Email Us</h2>
-              <a href="mailto:waterbubblewall01@gmail.com" id="contact-email-link" className="text-[#111820]/75 hover:text-[#C2A062] transition-colors font-semibold text-sm break-all" style={{ fontFamily: "Manrope, sans-serif" }}>
+              <a href="mailto:waterbubblewall01@gmail.com" id="contact-email-link" className="text-[#111820]/75 hover:text-[#C2A062] transition-colors font-semibold text-sm break-all">
                 waterbubblewall01@gmail.com
               </a>
             </div>
 
-            {/* WhatsApp */}
             <div id="contact-whatsapp-info" className="bg-[#111820] rounded-2xl p-7">
               <div className="w-11 h-11 rounded-xl bg-[#25D366]/20 flex items-center justify-center mb-4">
                 <svg viewBox="0 0 24 24" className="w-6 h-6 fill-[#25D366]" aria-hidden="true">
@@ -101,7 +138,7 @@ export default function ContactPage() {
                 </svg>
               </div>
               <h2 className="heading-serif text-xl text-white mb-2">Quick WhatsApp Message</h2>
-              <p className="text-white/50 text-xs mb-5" style={{ fontFamily: "Manrope, sans-serif" }}>
+              <p className="text-white/50 text-xs mb-5">
                 Tap to send a pre-filled message with your enquiry.
               </p>
               <Link
@@ -115,22 +152,20 @@ export default function ContactPage() {
               </Link>
             </div>
 
-            {/* Service Area */}
             <div id="contact-service-area" className="bg-white rounded-2xl p-7 border border-[#111820]/8 shadow-sm">
               <h2 className="heading-serif text-xl text-[#111820] mb-3">Service Area</h2>
-              <p className="text-[#111820]/65 text-sm mb-3" style={{ fontFamily: "Manrope, sans-serif" }}>Pan-India Delivery and Installation</p>
-              <p className="text-[#111820]/50 text-xs" style={{ fontFamily: "Manrope, sans-serif" }}>
+              <p className="text-[#111820]/65 text-sm mb-3">Pan-India Delivery and Installation</p>
+              <p className="text-[#111820]/50 text-xs">
                 Active turnkey delivery and on-site professional installation all over India.
               </p>
             </div>
           </div>
 
-          {/* Right: Form */}
           <div className="lg:col-span-3">
             <div id="contact-form-container" className="bg-white rounded-2xl p-8 border border-[#111820]/8 shadow-sm">
               <h2 className="heading-serif text-3xl text-[#111820] mb-2">Send Project Inquiry</h2>
               <div className="gold-line-left" />
-              <p className="text-[#111820]/55 text-sm mb-7 mt-2" style={{ fontFamily: "Manrope, sans-serif" }}>
+              <p className="text-[#111820]/55 text-sm mb-7 mt-2">
                 Fill in your project details and our team will get back to you shortly.
               </p>
 
@@ -225,7 +260,7 @@ export default function ContactPage() {
                     accept="image/*"
                     className="form-input py-2.5 file:mr-4 file:py-1.5 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-[#C2A062]/15 file:text-[#111820] hover:file:bg-[#C2A062]/25 file:cursor-pointer"
                   />
-                  <p className="text-[#111820]/40 text-xs mt-1.5" style={{ fontFamily: "Manrope, sans-serif" }}>
+                  <p className="text-[#111820]/40 text-xs mt-1.5">
                     Accepted formats: JPG, PNG, HEIC. Max 10MB.
                   </p>
                 </div>
@@ -239,7 +274,7 @@ export default function ContactPage() {
                   {submitting ? "Submitting…" : "Request My Quote"}
                 </button>
 
-                <p className="text-[#111820]/40 text-xs text-center" style={{ fontFamily: "Manrope, sans-serif" }}>
+                <p className="text-[#111820]/40 text-xs text-center">
                   Your details will only be used to understand your requirements and contact you regarding your enquiry.{" "}
                   <Link href="/privacy-policy" className="underline hover:text-[#C2A062]">Privacy Policy</Link>
                 </p>

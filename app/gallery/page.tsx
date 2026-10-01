@@ -160,7 +160,6 @@ export default function GalleryPage() {
     );
   }, [lightboxIndex, filteredPhotos.length]);
 
-  // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (lightboxIndex === null) return;
@@ -173,7 +172,6 @@ export default function GalleryPage() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [lightboxIndex, handlePrev, handleNext]);
 
-  // Lock body scroll during lightbox
   useEffect(() => {
     if (lightboxIndex !== null) {
       document.body.style.overflow = "hidden";
@@ -187,9 +185,46 @@ export default function GalleryPage() {
 
   const currentPhoto = lightboxIndex !== null ? filteredPhotos[lightboxIndex] : null;
 
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://waterbubblepillar.com";
+
+  const gallerySchema = {
+    "@context": "https://schema.org",
+    "@type": "ImageGallery",
+    name: "Water Bubble Pillar Installation Gallery",
+    description:
+      "Visual portfolio of bespoke water bubble pillars across luxury residences, hotels, and corporate offices in India.",
+    url: `${baseUrl}/gallery`,
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: baseUrl,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Gallery",
+        item: `${baseUrl}/gallery`,
+      },
+    ],
+  };
+
   return (
     <>
-      {/* ── HEADER ────────────────────────────────────────────────────────── */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(gallerySchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <section id="gallery-header" className="relative pt-32 pb-14 section-charcoal overflow-hidden">
         <div className="absolute inset-0 opacity-10 pointer-events-none">
           <div className="absolute top-0 left-1/4 w-96 h-96 rounded-full bg-[#C2A062] blur-3xl" />
@@ -199,10 +234,7 @@ export default function GalleryPage() {
         <div className="relative container-site text-center max-w-3xl mx-auto px-4">
           <div className="inline-flex items-center justify-center gap-3 mb-3">
             <span className="w-8 h-px bg-[#C2A062]" />
-            <p
-              className="text-[#C2A062] text-xs tracking-[0.28em] uppercase font-bold"
-              style={{ fontFamily: "Manrope, sans-serif" }}
-            >
+            <p className="text-[#C2A062] text-xs tracking-[0.28em] uppercase font-bold">
               Visual Portfolio
             </p>
             <span className="w-8 h-px bg-[#C2A062]" />
@@ -217,17 +249,13 @@ export default function GalleryPage() {
 
           <div className="w-16 h-0.5 bg-[#C2A062] rounded-full mx-auto mb-4" />
 
-          <p
-            className="text-white/70 text-base sm:text-lg max-w-xl mx-auto leading-relaxed"
-            style={{ fontFamily: "Manrope, sans-serif" }}
-          >
+          <p className="text-white/70 text-base sm:text-lg max-w-xl mx-auto leading-relaxed">
             A visual showcase of customized acrylic Water Bubble Pillars across residential,
             hospitality, and commercial spaces.
           </p>
         </div>
       </section>
 
-      {/* ── MINIMAL CATEGORY FILTER BAR ───────────────────────────────────── */}
       <section className="bg-[#0B1017] border-y border-white/10 sticky top-[72px] z-30 shadow-md">
         <div className="container-site py-3.5 px-4 flex justify-center">
           <div className="flex items-center gap-2 overflow-x-auto max-w-full pb-1 scrollbar-none">
@@ -247,7 +275,6 @@ export default function GalleryPage() {
                       ? "bg-[#C2A062] text-[#080C14] shadow-[0_0_15px_rgba(194,160,98,0.35)]"
                       : "bg-white/5 hover:bg-white/10 text-white/70 hover:text-white border border-white/10"
                   }`}
-                  style={{ fontFamily: "Manrope, sans-serif" }}
                 >
                   <span>{cat.label}</span>
                   <span
@@ -264,13 +291,10 @@ export default function GalleryPage() {
         </div>
       </section>
 
-      {/* ── PHOTO ONLY MOSAIC GRID (NO TEXT, NO DETAILS) ───────────────────── */}
       <section className="section-charcoal py-12 sm:py-16 min-h-[700px]">
         <div className="container-site px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 auto-rows-[280px]">
             {filteredPhotos.map((photo, index) => {
-              // Asymmetric Bento photo proportions:
-              // Tall columns span 2 rows, wide features span 2 columns, grand cluster spans 2x2
               let spanClasses = "col-span-1 row-span-1";
               if (photo.size === "featured") {
                 spanClasses = "md:col-span-2 md:row-span-2";
@@ -295,7 +319,6 @@ export default function GalleryPage() {
                   }}
                   className={`group relative rounded-2xl sm:rounded-3xl overflow-hidden cursor-pointer border border-white/10 hover:border-[#C2A062] bg-[#0E1520] transition-colors duration-300 transform-gpu ${spanClasses}`}
                 >
-                  {/* High Resolution Photo */}
                   <Image
                     src={photo.src}
                     alt={photo.alt}
@@ -306,10 +329,8 @@ export default function GalleryPage() {
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
                   />
 
-                  {/* Subtle hover darkening to bring out the zoom icon */}
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-colors duration-300" />
 
-                  {/* Subtle centered gold zoom lens indicator on hover */}
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-90 group-hover:scale-100 pointer-events-none">
                     <div className="w-12 h-12 rounded-full bg-black/70 backdrop-blur-md border border-[#C2A062]/60 text-[#C2A062] flex items-center justify-center shadow-xl">
                       <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current" aria-hidden="true">
@@ -325,7 +346,6 @@ export default function GalleryPage() {
         </div>
       </section>
 
-      {/* ── PURE PHOTO LIGHTBOX MODAL ─────────────────────────────────────── */}
       {currentPhoto && (
         <div
           id="gallery-lightbox"
@@ -336,7 +356,6 @@ export default function GalleryPage() {
             if (e.target === e.currentTarget) setLightboxIndex(null);
           }}
         >
-          {/* Top Bar Controls */}
           <div className="absolute top-4 inset-x-4 sm:inset-x-6 flex items-center justify-between z-30 pointer-events-none">
             <div className="px-3.5 py-1.5 rounded-full bg-black/60 border border-white/15 backdrop-blur-md text-xs text-white/80 font-mono pointer-events-auto">
               Photo {(lightboxIndex ?? 0) + 1} of {filteredPhotos.length}
@@ -351,7 +370,6 @@ export default function GalleryPage() {
             </button>
           </div>
 
-          {/* Left Arrow Button */}
           <button
             onClick={(e) => {
               e.stopPropagation();
@@ -363,7 +381,6 @@ export default function GalleryPage() {
             ←
           </button>
 
-          {/* Right Arrow Button */}
           <button
             onClick={(e) => {
               e.stopPropagation();
@@ -375,7 +392,6 @@ export default function GalleryPage() {
             →
           </button>
 
-          {/* Pure Full-Screen Photo Container */}
           <div className="relative w-full max-w-5xl h-[80vh] sm:h-[85vh] flex flex-col items-center justify-center z-20">
             <div className="relative w-full h-full">
               <Image
@@ -388,7 +404,6 @@ export default function GalleryPage() {
               />
             </div>
 
-            {/* Floating Bottom WhatsApp Enquire Button */}
             <div className="mt-4 flex items-center gap-3">
               <Link
                 href="https://wa.me/919834123136?text=Hello%20Water%20Bubble%20Pillar%2C%20I%20saw%20this%20design%20in%20your%20gallery%20and%20would%20like%20a%20quotation%20for%20my%20space."
@@ -419,13 +434,9 @@ export default function GalleryPage() {
         </div>
       )}
 
-      {/* ── BOTTOM CONVERSION CTA ─────────────────────────────────────────── */}
       <section className="section-ivory py-16 sm:py-20 text-center border-t border-black/5">
         <div className="container-site max-w-3xl mx-auto px-4">
-          <p
-            className="text-[#C2A062] text-xs tracking-[0.25em] uppercase font-bold mb-3"
-            style={{ fontFamily: "Manrope, sans-serif" }}
-          >
+          <p className="text-[#C2A062] text-xs tracking-[0.25em] uppercase font-bold mb-3">
             Custom Architecture
           </p>
           <h2
@@ -435,10 +446,7 @@ export default function GalleryPage() {
             Have a Specific Space or Ceiling Height?
           </h2>
           <div className="gold-line mx-auto mb-6" />
-          <p
-            className="text-[#111820]/70 text-base sm:text-lg mb-8 leading-relaxed max-w-2xl mx-auto"
-            style={{ fontFamily: "Manrope, sans-serif" }}
-          >
+          <p className="text-[#111820]/70 text-base sm:text-lg mb-8 leading-relaxed max-w-2xl mx-auto">
             Send our workshop your ceiling height, floor plan, or site photographs.
             We custom-manufacture acrylic bubble pillars up to 15ft with turnkey installation all over India.
           </p>
@@ -457,7 +465,6 @@ export default function GalleryPage() {
               rel="noopener noreferrer"
               id="gallery-bottom-wa-btn"
               className="px-8 py-4 rounded-xl bg-[#111820] hover:bg-[#1A2330] text-white border border-[#C2A062]/40 text-xs font-bold uppercase tracking-wider transition-all w-full sm:w-auto text-center"
-              style={{ fontFamily: "Manrope, sans-serif" }}
             >
               Consult on WhatsApp
             </Link>

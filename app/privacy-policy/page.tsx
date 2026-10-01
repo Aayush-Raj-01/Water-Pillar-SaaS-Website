@@ -4,30 +4,34 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Privacy Policy | Water Bubble Pillar",
   description:
-    "Privacy policy for Water Bubble Pillar by Water Bubble Wall. How we handle your personal information.",
+    "Privacy policy for Water Bubble Pillar by Water Bubble Wall. Learn how we handle and protect customer enquiry data.",
   alternates: { canonical: "/privacy-policy" },
+  openGraph: {
+    title: "Privacy Policy | Water Bubble Pillar",
+    description:
+      "Privacy policy for Water Bubble Pillar by Water Bubble Wall. Learn how we protect customer information.",
+    url: "/privacy-policy",
+    type: "website",
+  },
 };
 
 export default function PrivacyPolicyPage() {
   return (
     <>
-      {/* Header */}
       <section id="privacy-header" className="pt-32 pb-16 section-charcoal">
         <div className="container-site text-center max-w-2xl mx-auto">
           <h1 className="heading-serif text-4xl md:text-5xl text-white mb-4">Privacy Policy</h1>
           <div className="gold-line mx-auto" />
-          <p className="text-white/50 text-sm mt-4" style={{ fontFamily: "Manrope, sans-serif" }}>
+          <p className="text-white/50 text-sm mt-4">
             Last updated: September 2026
           </p>
         </div>
       </section>
 
-      {/* Content */}
       <section id="privacy-content" className="section-ivory section-padding">
         <div className="container-site max-w-3xl mx-auto">
           <div className="bg-white rounded-2xl p-8 md:p-12 border border-[#111820]/8 shadow-sm">
-            <div className="prose max-w-none" style={{ fontFamily: "Manrope, sans-serif", color: "#111820" }}>
-
+            <div className="prose max-w-none text-[#111820]">
               <p className="text-[#111820]/70 text-base leading-relaxed mb-6">
                 Water Bubble Pillar respects your privacy. Information submitted through our website, WhatsApp, telephone or enquiry forms may include your name, telephone number, email address, city, site photographs and project requirements.
               </p>
@@ -80,7 +84,6 @@ export default function PrivacyPolicyPage() {
               >
                 waterbubblewall01@gmail.com
               </a>
-
             </div>
 
             <div className="mt-10 pt-6 border-t border-[#111820]/8 flex flex-wrap gap-4">

@@ -17,10 +17,7 @@ export default function Footer() {
   return (
     <footer className="section-charcoal pt-6 sm:pt-8 border-t border-white/10" id="site-footer">
       <div className="container-site section-padding-sm">
-        {/* Top Row */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-white/10">
-
-          {/* Brand */}
           <div className="lg:col-span-1">
             <Link href="/" className="inline-block mb-3 group">
               <div className="relative h-12 sm:h-14 w-[210px] sm:w-[230px]">
@@ -34,11 +31,10 @@ export default function Footer() {
               </div>
             </Link>
             <div className="gold-line-left mb-3" />
-            <p className="text-white/60 text-sm leading-relaxed" style={{ fontFamily: "Manrope, sans-serif" }}>
+            <p className="text-white/60 text-sm leading-relaxed">
               Customized acrylic Water Bubble Pillars with RGB lighting for homes,
               hotels, restaurants, offices, showrooms, events and commercial interiors.
             </p>
-            {/* Social Icons */}
             <div className="flex gap-3 mt-5">
               <a
                 href="#"
@@ -79,9 +75,8 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Quick Links */}
           <div>
-            <h3 className="text-white font-bold text-sm tracking-[0.12em] uppercase mb-5" style={{ fontFamily: "Manrope, sans-serif" }}>
+            <h3 className="text-white font-bold text-sm tracking-[0.12em] uppercase mb-5">
               Quick Links
             </h3>
             <ul className="flex flex-col gap-2.5">
@@ -91,7 +86,6 @@ export default function Footer() {
                     href={link.href}
                     id={`footer-link-${link.label.toLowerCase().replace(/\s+/g, "-")}`}
                     className="text-white/60 hover:text-[#C2A062] text-sm transition-colors duration-200"
-                    style={{ fontFamily: "Manrope, sans-serif" }}
                   >
                     {link.label}
                   </Link>
@@ -100,12 +94,11 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Contact */}
           <div>
-            <h3 className="text-white font-bold text-sm tracking-[0.12em] uppercase mb-5" style={{ fontFamily: "Manrope, sans-serif" }}>
+            <h3 className="text-white font-bold text-sm tracking-[0.12em] uppercase mb-5">
               Contact
             </h3>
-            <ul className="flex flex-col gap-3 text-white/60 text-sm" style={{ fontFamily: "Manrope, sans-serif" }}>
+            <ul className="flex flex-col gap-3 text-white/60 text-sm">
               <li>
                 <a
                   href="tel:+919834123136"
@@ -150,15 +143,14 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Service Area */}
           <div>
-            <h3 className="text-white font-bold text-sm tracking-[0.12em] uppercase mb-5" style={{ fontFamily: "Manrope, sans-serif" }}>
+            <h3 className="text-white font-bold text-sm tracking-[0.12em] uppercase mb-5">
               Service Area
             </h3>
-            <p className="text-white/60 text-sm mb-3" style={{ fontFamily: "Manrope, sans-serif" }}>
+            <p className="text-white/60 text-sm mb-3">
               Pan-India Delivery and Installation
             </p>
-            <ul className="flex flex-col gap-2 text-white/50 text-sm" style={{ fontFamily: "Manrope, sans-serif" }}>
+            <ul className="flex flex-col gap-2 text-white/50 text-sm">
               {["All Major Metros & States", "North, South, East & West India", "Turnkey On-Site Engineering", "Insured Crated Delivery"].map((region) => (
                 <li key={region} className="flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#C2A062] inline-block flex-shrink-0" />
@@ -169,12 +161,11 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom Row */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-8">
-          <p className="text-white/40 text-xs text-center md:text-left" style={{ fontFamily: "Manrope, sans-serif" }}>
+          <p className="text-white/40 text-xs text-center md:text-left">
             © 2026 Water Bubble Pillar by Water Bubble Wall. All Rights Reserved.
           </p>
-          <p className="text-white/30 text-xs text-center md:text-right max-w-md" style={{ fontFamily: "Manrope, sans-serif" }}>
+          <p className="text-white/30 text-xs text-center md:text-right max-w-md">
             Product appearance, lighting colours and dimensions may vary according to customization and site requirements.
           </p>
         </div>

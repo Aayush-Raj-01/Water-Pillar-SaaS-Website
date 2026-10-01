@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Link from "next/link";
 
-
 const faqs = [
   {
     q: "What is a Water Bubble Pillar?",
@@ -91,7 +90,7 @@ function FAQItem({ faq, index }: { faq: { q: string; a: string }; index: number 
       {open && (
         <div className="px-6 pb-6">
           <div className="w-full h-px bg-[#C2A062]/20 mb-4" />
-          <p className="text-[#111820]/65 text-base leading-relaxed" style={{ fontFamily: "Manrope, sans-serif" }}>
+          <p className="text-[#111820]/65 text-base leading-relaxed">
             {faq.a}
           </p>
         </div>
@@ -100,29 +99,69 @@ function FAQItem({ faq, index }: { faq: { q: string; a: string }; index: number 
   );
 }
 
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://waterbubblepillar.com";
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.q,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.a,
+    },
+  })),
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: baseUrl,
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "FAQs",
+      item: `${baseUrl}/faqs`,
+    },
+  ],
+};
+
 export default function FAQsPage() {
   return (
     <>
-      {/* Header */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <section id="faqs-header" className="relative pt-32 pb-20 section-charcoal overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute bottom-0 right-0 w-80 h-80 rounded-full bg-[#C2A062] blur-3xl" />
         </div>
         <div className="relative container-site text-center max-w-3xl mx-auto">
-          <p className="text-[#C2A062] text-xs tracking-[0.25em] uppercase mb-3 font-bold" style={{ fontFamily: "Manrope, sans-serif" }}>
+          <p className="text-[#C2A062] text-xs tracking-[0.25em] uppercase mb-3 font-bold">
             Common Questions
           </p>
           <h1 className="heading-serif text-5xl md:text-6xl text-white mb-5">
             Frequently Asked Questions
           </h1>
           <div className="gold-line mx-auto" />
-          <p className="text-white/65 text-base mt-4" style={{ fontFamily: "Manrope, sans-serif" }}>
+          <p className="text-white/65 text-base mt-4">
             Everything you need to know before getting started.
           </p>
         </div>
       </section>
 
-      {/* FAQ List */}
       <section id="faqs-list" className="section-ivory section-padding">
         <div className="container-site max-w-3xl mx-auto">
           <div className="flex flex-col gap-4">
@@ -131,12 +170,11 @@ export default function FAQsPage() {
             ))}
           </div>
 
-          {/* Still have questions */}
           <div id="faqs-contact-cta" className="mt-14 text-center bg-[#111820] rounded-2xl p-10">
             <h2 className="heading-serif text-2xl text-white mb-3">
               Still Have Questions?
             </h2>
-            <p className="text-white/60 text-sm mb-6" style={{ fontFamily: "Manrope, sans-serif" }}>
+            <p className="text-white/60 text-sm mb-6">
               Our team is happy to help. Send your question on WhatsApp or fill in our enquiry form.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
